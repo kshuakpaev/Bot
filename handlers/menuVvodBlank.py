@@ -18,22 +18,22 @@ class Form(StatesGroup):
     nameper = State() 
     gosnum = State() 
 
-@dp.message_handler(commands=['start1'])
-async def start1(message: types.Message):
-    if message.chat.type == "private":
-        await bot.send_message(message.from_user.id, "Главное меню", reply_markup=nav.mainMenu)
+# @dp.message_handler(commands=['start1'])
+# async def start1(message: types.Message):
+#     if message.chat.type == "private":
+#         await bot.send_message(message.from_user.id, "Главное меню", reply_markup=nav.mainMenu)
 
-@dp.callback_query_handler(text="btnInPer")
+@dp.callback_query_handler(text="btnInBlank")
 async def btn_action(message: types.Message):
     await bot.delete_message(message.from_user.id, message.message.message_id)
-    await bot.send_message(message.from_user.id, "Последовательно введите БИН/ИИН, наименование перевозчика, гос.номер", reply_markup=nav.menuInPer)
+    await bot.send_message(message.from_user.id, "Последовательно введите БИН/ИИН, страну, вид и количество бланков", reply_markup=nav.menuInBlank)
 
 @dp.callback_query_handler(text="btnMainMenu")
 async def btn_action(message: types.Message):
     await bot.delete_message(message.from_user.id, message.message.message_id)
     await bot.send_message(message.from_user.id, "Главное меню", reply_markup=nav.mainMenu)
 
-@dp.callback_query_handler(text="btnVInPer")
+@dp.callback_query_handler(text="btnVInBlank")
 async def cmd_start(message: types.Message):
     await bot.delete_message(message.from_user.id, message.message.message_id)
     await Form.binn.set()
@@ -61,9 +61,7 @@ async def process_name(message: types.Message, state: FSMContext):
         data['binn'] = message.text
 
     await Form.next()
-    await message.reply("Введите наименование перевозчика")
-
-
+    await message.reply("Выберите страну")
 
 
 # Проверяем возраст
@@ -124,5 +122,5 @@ async def w_cancel(message: types.Message):
     await message.reply("Возврат в главное меню", reply_markup=types.ReplyKeyboardRemove())
     await bot.send_message(message.from_user.id, "Главное меню", reply_markup=nav.mainMenu)
 
-def register_handlers_start1(dp: Dispatcher):
-    dp.register_message_handler(start1, commands=['start1'])
+# def register_handlers_start1(dp: Dispatcher):
+#     dp.register_message_handler(start1, commands=['start1'])
