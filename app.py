@@ -1,7 +1,7 @@
 from aiogram.utils import executor
 from create import dp
 
-from handlers import start, part1, part2, menuVvodPer
+from handlers import start, part1, part2, menuVvodPer, menuVvodBlank
 
 start.register_handlers_start(dp)
 part1.register_handlers_part1(dp)

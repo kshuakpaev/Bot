@@ -28,11 +28,12 @@ menuInPer.insert(btnVInPer)
 menuInPer.insert(btnMainMenu)
 
 # Размещение бланка разрешения
-menuInPer = InlineKeyboardMarkup(row_width=2)
+menuInBlank = InlineKeyboardMarkup(row_width=2)
 btnMainMenu = InlineKeyboardButton(text="Главное меню", callback_data="btnMainMenu")
-btnVInPer = InlineKeyboardButton(text="Разместить бланк разрешения", callback_data="btnVInPer")
+btnVInBlank = InlineKeyboardButton(text="Разместить бланк разрешения", callback_data="btnVInBlank")
 
 menuInPer.insert(btnVInPer)
+menuInPer.insert(btnVInBlank)
 menuInPer.insert(btnMainMenu)
 
 # mainMenu.insert(btnInPer)
