@@ -1,5 +1,6 @@
 
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from .bdd import BD1
 # import main
 # import unitss
 
@@ -35,6 +36,16 @@ btnVInBlank = InlineKeyboardButton(text="Разместить бланк раз�
 # menuInPer.insert(btnVInPer)
 menuInBlank.insert(btnVInBlank)
 menuInBlank.insert(btnMainMenu)
+
+
+nn = BD1.all_country()
+ptt = []
+for i in nn:
+    ss = ""
+    ss = i
+    ptt[i] = i
+    print(ss.strip())
+    print(ptt[i])
 
 # mainMenu.insert(btnInPer)
 # mainMenu.insert(btnInBlank)

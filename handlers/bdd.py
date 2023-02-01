@@ -14,3 +14,37 @@ class BD1:
         conn.commit()
         cur.close()
         conn.close()
+    
+    def all_country():
+        cur.execute("""SELECT namecountry FROM "tblcountry" GROUP BY namecountry ORDER BY namecountry""")
+        query_result = cur.fetchall()
+        kk = []
+        for i in query_result:
+            ss = ""
+            ss = i[0]
+            kk.append(ss.strip())
+        return kk
+
+    def blank_country(namecountry):
+        # cur.execute("""SELECT * FROM "tblcountry" WHERE namecountry = '(%s)' """, namecountry)
+        cur.execute(f"SELECT * FROM tblcountry WHERE namecountry = '{namecountry}'")
+        query_result = cur.fetchall()
+        kk = []
+        for i in query_result:
+            ss = ""
+            ss = i[1]
+            kk.append(ss.strip())
+        return kk
+
+print(BD1.all_country())
+nn = BD1.all_country()
+for i in nn:
+    ss = ""
+    ss = i
+    print(ss.strip())
+print(BD1.blank_country(ss.strip()))
+nn = BD1.blank_country(ss.strip())
+for i in nn:
+    ss = ""
+    ss = i
+    print(ss.strip())
