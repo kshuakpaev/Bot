@@ -36,15 +36,15 @@ class BD1:
             kk.append(ss.strip())
         return kk
 
-print(BD1.all_country())
-nn = BD1.all_country()
-for i in nn:
-    ss = ""
-    ss = i
-    print(ss.strip())
-print(BD1.blank_country(ss.strip()))
-nn = BD1.blank_country(ss.strip())
-for i in nn:
-    ss = ""
-    ss = i
-    print(ss.strip())
+# print(BD1.all_country())
+# nn = BD1.all_country()
+# for i in nn:
+#     ss = ""
+#     ss = i
+#     print(ss.strip())
+# print(BD1.blank_country(ss.strip()))
+# nn = BD1.blank_country(ss.strip())
+# for i in nn:
+#     ss = ""
+#     ss = i
+#     print(ss.strip())

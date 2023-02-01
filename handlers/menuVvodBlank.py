@@ -84,13 +84,14 @@ async def process_name(message: types.Message, state: FSMContext):
 # @dp.message_handler(lambda message: not message.text.isdigit(), state=Form.nameper)
 
 
-@dp.callback_query_handler(text=nav.mark.values)
+@dp.callback_query_handler(lambda callback: callback.data in nav.mark)
 @dp.message_handler(state=Form1.nameper)
-async def process_name(message: types.Message, state: FSMContext):
+async def process_name(message: types.Message, state: FSMContext, callback: types.CallbackQuery):
     async with state.proxy() as data:
         data['nameper'] = message.text
 
     await Form1.next()
+    await callback.message.edit_reply_markup(nav.mark_blank_vid)
     # await mark_blank_vid('Австрия')
     await message.reply("Введите гос.номер или напиши /cancel")
 
