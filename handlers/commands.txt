@@ -1,0 +1,2 @@
+  32 git commit -m "01.02.2023 6 обновление"
+  33 git push -u origin main
