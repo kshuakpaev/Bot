@@ -1,6 +1,7 @@
 from aiogram import types, Dispatcher
 from create import dp, bot
 import handlers.murkups as nav
+from handlers.murkups import mark_blank_vid
 
 import aiogram.utils.markdown as md
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -9,7 +10,7 @@ from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import ParseMode
 from handlers.bdd import BD1
-
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 
@@ -61,22 +62,37 @@ async def process_name(message: types.Message, state: FSMContext):
         data['binn'] = message.text
 
     await Form1.next()
-    await bot.send_message(message.from_user.id, "Главное меню", reply_markup=nav.mainMenu)
-    await message.reply("Выберите страну")
+    await bot.send_message(message.from_user.id, "Выберите страну", reply_markup=nav.mark)
+    # await list_categories(message)
+  
+    # await message.reply("Выберите страну")
 
+# async def list_categories(message: types.Message, **kwargs):
+#     mrk = await categories_country_keyboard()
 
-# Проверяем возраст
+# async def categories_country_keyboard():
+#     mark = InlineKeyboardMarkup()
+#     nn = BD1.all_country()
+#     for i in nn:
+#         button_text = f"{i}"
+#         print(button_text)
+
+#         mark.insert(
+#             InlineKeyboardButton(text=button_text)
+#         )
+# # Проверяем возраст
 # @dp.message_handler(lambda message: not message.text.isdigit(), state=Form.nameper)
 
 
+@dp.callback_query_handler(text=nav.mark.values)
+@dp.message_handler(state=Form1.nameper)
+async def process_name(message: types.Message, state: FSMContext):
+    async with state.proxy() as data:
+        data['nameper'] = message.text
 
-# @dp.message_handler(state=Form.nameper)
-# async def process_name(message: types.Message, state: FSMContext):
-#     async with state.proxy() as data:
-#         data['nameper'] = message.text
-
-#     await Form.next()
-#     await message.reply("Введите гос.номер или напиши /cancel")
+    await Form1.next()
+    # await mark_blank_vid('Австрия')
+    await message.reply("Введите гос.номер или напиши /cancel")
 
 # Сохраняем пол, выводим анкету
 # @dp.message_handler(state=Form.gosnum)

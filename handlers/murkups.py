@@ -38,14 +38,33 @@ menuInBlank.insert(btnVInBlank)
 menuInBlank.insert(btnMainMenu)
 
 
+mark = InlineKeyboardMarkup(row_width=3)
 nn = BD1.all_country()
-ptt = []
 for i in nn:
-    ss = ""
-    ss = i
-    ptt[i] = i
-    print(ss.strip())
-    print(ptt[i])
+    button_text = f"{i}"
+    # print(button_text)
+    mark.insert(
+        InlineKeyboardButton(text=button_text, callback_data=button_text)
+    )
+
+async def mark_blank_vid(country):
+    mark_blank = InlineKeyboardMarkup(row_width=3)
+    nn = BD1.blank_country(country)
+    for i in nn:
+        button_text = f"{i}"
+    # print(button_text)
+    mark_blank.insert(
+        InlineKeyboardButton(text=button_text, callback_data=button_text)
+    )
+
+# nn = BD1.all_country()
+# ptt = []
+# for i in nn:
+#     ss = ""
+#     ss = i
+#     ptt[i] = ss
+#     print(ss.strip())
+#     print(ptt[i])
 
 # mainMenu.insert(btnInPer)
 # mainMenu.insert(btnInBlank)
