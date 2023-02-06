@@ -23,23 +23,47 @@ class Form1(StatesGroup):
 # async def start1(message: types.Message):
 #     if message.chat.type == "private":
 #         await bot.send_message(message.from_user.id, "Главное меню", reply_markup=nav.mainMenu)
+@dp.callback_query_handler(lambda callback: callback.data)
+async def next_keyboard(callback):
+    print(callback)
+    if callback.data == 'btnOutBlank':
+        # await callback.message.edit_reply_markup(nav.mainMenu)
+        await callback.message.reply("Последовательно введите БИН/ИИН, страну, вид и количество бланков", reply_markup=nav.menuInBlank)
+    if callback.data == 'btnOutGruz':
+        await callback.message.reply("Первая инлайн кнопка")
+    if callback.data == 'btnInBlank':
+        # await callback.message.delete() #_message(callback.from_user.id, callback.message.message_id)
+        # await bot.delete_message(chat_id=callback.from_user.id, message_id=callback.message.message_id)
+        await callback.message.reply("Последовательно введите БИН/ИИН, страну, вид и количество бланков", reply_markup=nav.menuInBlank)     
+    # if callback.data == 'btnInBlank':
+        # # @dp.callback_query_handler(text="btnInBlank")
+        # async def btn_action(message: types.Message):
+        #     await bot.delete_message(message.from_user.id, message.message.message_id)
+        #     await bot.send_message(message.from_user.id, "Последовательно введите БИН/ИИН, страну, вид и количество бланков", reply_markup=nav.menuInBlank)
+        # pass
+    if callback.data == 'btnVInBlank':
+        # await bot.delete_message(chat_id=callback.from_user.id, message_id=callback.message.message_id)
+        await Form1.binn.set()
+        await callback.message.reply("Введите БИН/ИИН")
+    if callback.data == 
 
-@dp.callback_query_handler(text="btnInBlank")
-async def btn_action(message: types.Message):
-    await bot.delete_message(message.from_user.id, message.message.message_id)
-    await bot.send_message(message.from_user.id, "Последовательно введите БИН/ИИН, страну, вид и количество бланков", reply_markup=nav.menuInBlank)
+        
+# @dp.callback_query_handler(text="btnInBlank")
+# async def btn_action(message: types.Message):
+#     await bot.delete_message(message.from_user.id, message.message.message_id)
+#     await bot.send_message(message.from_user.id, "Последовательно введите БИН/ИИН, страну, вид и количество бланков", reply_markup=nav.menuInBlank)
 
 @dp.callback_query_handler(text="btnMainMenu")
 async def btn_action(message: types.Message):
     await bot.delete_message(message.from_user.id, message.message.message_id)
     await bot.send_message(message.from_user.id, "Главное меню", reply_markup=nav.mainMenu)
 
-@dp.callback_query_handler(text="btnVInBlank")
-async def cmd_start(message: types.Message):
-    await bot.delete_message(message.from_user.id, message.message.message_id)
-    await Form1.binn.set()
-    await bot.send_message(message.from_user.id, "Введите БИН/ИИН")
-    # await message.reply("Введите БИН/ИИН")
+# @dp.callback_query_handler(text="btnVInBlank")
+# async def cmd_start(message: types.Message):
+#     await bot.delete_message(message.from_user.id, message.message.message_id)
+#     await Form1.binn.set()
+#     await bot.send_message(message.from_user.id, "Введите БИН/ИИН")
+#     # await message.reply("Введите БИН/ИИН")
 
 
 # # Добавляем возможность отмены, если пользователь передумал заполнять
@@ -84,16 +108,16 @@ async def process_name(message: types.Message, state: FSMContext):
 # @dp.message_handler(lambda message: not message.text.isdigit(), state=Form.nameper)
 
 
-@dp.callback_query_handler(lambda callback: callback.data in nav.mark)
-@dp.message_handler(state=Form1.nameper)
-async def process_name(message: types.Message, state: FSMContext, callback: types.CallbackQuery):
-    async with state.proxy() as data:
-        data['nameper'] = message.text
 
-    await Form1.next()
-    await callback.message.edit_reply_markup(nav.mark_blank_vid)
-    # await mark_blank_vid('Австрия')
-    await message.reply("Введите гос.номер или напиши /cancel")
+# @dp.message_handler(state=Form1.nameper)
+# async def process_name(message: types.Message, state: FSMContext, callback: types.CallbackQuery):
+#     async with state.proxy() as data:
+#         data['nameper'] = message.text
+
+#     await Form1.next()
+#     await callback.message.edit_reply_markup(nav.mark_blank_vid)
+#     # await mark_blank_vid('Австрия')
+#     await message.reply("Введите гос.номер или напиши /cancel")
 
 # Сохраняем пол, выводим анкету
 # @dp.message_handler(state=Form.gosnum)
