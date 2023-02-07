@@ -44,7 +44,7 @@ for i in nn:
     button_text = f"{i}"
     # print(button_text)
     mark.insert(
-        InlineKeyboardButton(text=button_text, callback_data=button_text)
+        InlineKeyboardButton(text=button_text, callback_data=button_text.strip())
     )
 
 async def mark_blank_vid(country):
